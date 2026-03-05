@@ -243,7 +243,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1406990617}
         m_TargetAssemblyTypeName: HealthBar, Assembly-CSharp
-        m_MethodName: GetDamage
+        m_MethodName: TakeDamage
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1169,6 +1169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2ffcb06d4382046ab79f3a07924ace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _fillSpeed: 5
 --- !u!1 &1770171773
 GameObject:
   m_ObjectHideFlags: 0
