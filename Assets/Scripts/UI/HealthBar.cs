@@ -8,23 +8,23 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _fillSpeed = 5;
 
-    private Slider _healthBar;    
-    private float _healthBarTargetValue;
+    private Slider _healthBarSlider;    
+    private float _healthBarTargetValueSlider;
     private Coroutine _currentCoroutine;
 
     private void Start()
     {
-        _healthBar = GetComponent<Slider>();
-        _healthBar.maxValue = _maxHealth;
-        _healthBar.value = _healthBar.maxValue;
-        _healthBarTargetValue = _healthBar.value;
+        _healthBarSlider = GetComponent<Slider>();
+        _healthBarSlider.maxValue = _maxHealth;
+        _healthBarSlider.value = _healthBarSlider.maxValue;
+        _healthBarTargetValueSlider = _healthBarSlider.value;
     }
 
     private void Update()
     {
-        if (_healthBar.value != _healthBarTargetValue)
+        if (_healthBarSlider.value != _healthBarTargetValueSlider)
         {
-            _healthBar.value = Mathf.MoveTowards(_healthBar.value, _healthBarTargetValue, _fillSpeed*Time.deltaTime);
+            _healthBarSlider.value = Mathf.MoveTowards(_healthBarSlider.value, _healthBarTargetValueSlider, _fillSpeed*Time.deltaTime);
         }
     }
 
@@ -40,8 +40,8 @@ public class HealthBar : MonoBehaviour
 
     private void ChangeHealth(float value)
     {
-        _healthBarTargetValue = Mathf.Clamp(_healthBarTargetValue + value, 0, _maxHealth);
-        StartHealthAnimation(_healthBarTargetValue);
+        _healthBarTargetValueSlider = Mathf.Clamp(_healthBarTargetValueSlider + value, 0, _maxHealth);
+        StartHealthAnimation(_healthBarTargetValueSlider);
     }
 
     private void StartHealthAnimation(float targetValue)
@@ -54,13 +54,14 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator AnimateToValue(float targetValue)
     {
-        while (Mathf.Abs(_healthBar.value - targetValue) > 0.01f)
+        while (Mathf.Abs(_healthBarSlider.value - targetValue) > 0.01f)
         {
-            _healthBar.value = Mathf.MoveTowards(_healthBar.value, targetValue, _fillSpeed * Time.deltaTime);
+            _healthBarSlider.value = Mathf.MoveTowards(_healthBarSlider.value, targetValue, _fillSpeed * Time.deltaTime);
             yield return null;
         }
 
-        _healthBar.value = targetValue;
+        _healthBarSlider.value = targetValue;
         _currentCoroutine = null;
     }
-}
+} 
+
